@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 okova
+# alarm v1.0.1 — идея и постановка: okova; аудит и реализация: Claude (Anthropic)
+# === API ===
+API_KEY=PUT_YOUR_KEY_HERE
+REGION_ID=0
+POLL_INTERVAL=65
+
+# === Реле (запускаются как раньше, через shell) ===
+# on/off встроены в alarm.py и берут данные из snapshot.json
+CMD_ON=/opt/alarm/venv/bin/python /opt/alarm/alarm.py on
+CMD_OFF=/opt/alarm/venv/bin/python /opt/alarm/alarm.py off
+
+# === Паттерны: первый_вкл,последующие_вкл,пауза,количество (сек) ===
+PATTERN_CLEAR=2,2,2,3
+PATTERN_DEFAULT=5,3,5,2
+PATTERN_AIR_RED=10,3,3,3
+PATTERN_AIR_ORANGE=8,3,4,3
+PATTERN_AIR_YELLOW=5,3,5,2
+PATTERN_AIR=5,3,5,2
+PATTERN_ARTILLERY=8,3,3,4
+
+# === Лог в файл (с ротацией; journald продолжает работать) ===
+LOG_FILE=/var/log/alarm/alarm.log
+#LOG_MAX_MB=5
+#LOG_BACKUPS=5
+
+# === Необязательные параметры (значения по умолчанию) ===
+# Если в snapshot.json больше одного устройства — ID реле (раньше был захардкожен в on.py)
+#TUYA_DEVICE_ID=PUT_DEVICE_ID_HERE
+# Отладка: писать в лог сырой ответ API на каждом опросе, пока идёт тревога (1/0)
+#LOG_ALERT_DATA=1
+#LOG_DATA_MAX=4000
+#HTTP_TIMEOUT=10
+#HTTP_DEADLINE=30
+#CMD_TIMEOUT=20
+#CMD_MEM_MB=512
+#MAX_RSS_MB=80
+#MAX_ON_SECONDS=60
+#MAX_PULSE_COUNT=30
+#STATE_MAX_AGE=3600

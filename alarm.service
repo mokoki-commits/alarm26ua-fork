@@ -1,0 +1,55 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 okova
+# alarm v1.0.1 — идея и постановка: okova; аудит и реализация: Claude (Anthropic)
+[Unit]
+Description=Air alarm -> relay service
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=600
+StartLimitBurst=10
+
+[Service]
+Type=notify
+NotifyAccess=main
+User=alarm
+Group=alarm
+WorkingDirectory=/opt/alarm
+ExecStart=/opt/alarm/venv/bin/python -u /opt/alarm/alarm.py
+# что бы ни случилось (stop, crash, watchdog kill) — реле выключаем
+ExecStopPost=-/opt/alarm/venv/bin/python /opt/alarm/alarm.py off
+
+Restart=always
+RestartSec=5
+# ошибка конфигурации — не крутить рестарты
+RestartPreventExitStatus=78
+
+# Защита от зависаний: сервис шлёт WATCHDOG=1 минимум раз в секунду
+WatchdogSec=120
+TimeoutStopSec=40
+
+# Защита от перерасхода ресурсов (cgroup)
+MemoryHigh=100M
+MemoryMax=128M
+TasksMax=32
+CPUQuota=50%
+LimitNOFILE=256
+
+# Состояние: /var/lib/alarm
+StateDirectory=alarm
+# Логи: /var/log/alarm (создаётся и доступен на запись сервису)
+LogsDirectory=alarm
+UMask=0027
+
+# Изоляция
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target
