@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2026 okova
 # alarm v1.0.1 — идея и постановка: okova; аудит и реализация: Claude (Anthropic)
+# Модернизация (исправление уровней/цветов тревоги, тесты): Cline (ИИ-ассистент), форк avk013/alarm26ua
 # Запуск: sudo bash install.sh   (из каталога с файлами сервиса)
 if [ -z "${BASH_VERSION:-}" ]; then exec bash "$0" "$@"; fi
 set -euo pipefail

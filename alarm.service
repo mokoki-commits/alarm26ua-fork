@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2026 okova
 # alarm v1.0.1 — идея и постановка: okova; аудит и реализация: Claude (Anthropic)
+# Модернизация (исправление уровней/цветов тревоги, тесты): Cline (ИИ-ассистент), форк avk013/alarm26ua
 [Unit]
 Description=Air alarm -> relay service
 After=network-online.target

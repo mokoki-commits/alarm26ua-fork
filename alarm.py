@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2026 okova
+# Модернизация (исправление уровней/цветов тревоги, тесты): Cline (ИИ-ассистент), форк avk013/alarm26ua
 """Сервис тревоги: ukrainealarm API -> импульсы реле Tuya. Всё в одном файле.
 
 Режимы:
